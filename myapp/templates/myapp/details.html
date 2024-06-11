@@ -1,0 +1,89 @@
+{% extends "myapp/layout.html" %}
+
+{% load static %}
+
+{% block title %}Detail {{ mission.name }}{% endblock %}
+
+{% block body %}
+<div class="container mt-3">
+    <div class="card">
+        <h3 class="card-header" id="mission-header"><strong>{{ mission.name }}</strong> - Details</h3>
+        <ul class="details list-group list-group-flush" id="mission-detail">
+            <li class="list-group-item"><strong>Progress:</strong> {{ mission.progress|floatformat:2 }}%
+                <div class="progress">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ mission.progress }}%" aria-valuenow="{{ mission.progress }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item"><strong>Description:</strong> {{ mission.describle }}</li>
+            <li class="list-group-item"><strong>Creator:</strong> {{ mission.creator }}</li>
+            <li class="list-group-item"><strong>Executor:</strong> {{ mission.executor }}</li>
+            <li class="list-group-item"><strong>Mission type:</strong> {{ mission.mission_type }}</li>
+            <li class="list-group-item"><strong>Mission period:</strong> {{ mission.mission_period }}</li>
+            <li class="list-group-item"><strong>Mission priority:</strong> {{ mission.mission_priority }}</li>
+            <li class="list-group-item"><strong>Innitiated date:</strong> {{ mission.innitiated_date }}</li>
+            <li class="list-group-item"><strong>Deadline:</strong> {{ mission.deadline }}</li>
+            <li class="list-group-item">
+                <div class="d-flex flex-row justify-content-between">
+                    <div>
+                        <strong>Parent mission:</strong> {{ mission.parent_mission }}
+                    </div>
+                    {% if mission.parent_mission and not mission.is_marked %}
+                    <form action="{% url 'myapp:mark_milestone' mission.id %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-warning" type="submit" value="Mark as a milestone">
+                    </form>
+                    {% endif %}
+                </div>
+            </li>
+            <li class="list-group-item"><strong>Rewards:</strong>
+                <ul>
+                    <li>{{ mission.reward_1.capitalize }}</li>
+                    <li>{{ mission.reward_2.capitalize }}</li>
+                    <li>{{ mission.reward_3.capitalize }}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="d-flex flex-row justify-content-center mt-3">
+        <form action="{% url 'myapp:edit' mission.id %}" method="get">
+             {% csrf_token %}
+             <input class="btn btn-dark" type="submit" value="Edit" id="edit-button" style="width: 100px">
+        </form>
+        <div style="width: 10px;"></div>
+        <form action="{% url 'myapp:cancel' mission.id %}" method="post">
+             {% csrf_token %}
+             <input class="btn btn-warning" type="submit" value="Cancel" id="cancel-button" style="width: 100px">
+        </form>
+    </div>
+
+    <div class="container mt-3" id="milestones-list">
+        {% for milestone in milestones %}
+        <div class="container card d-flex flex-row justify-content-between mt-1 milestone">
+            <div>
+                {{ milestone.name }}
+            </div>
+            <div class="d-flex flex-row justigy-content-end">
+                <form action="{% url 'myapp:finish_milestone' milestone.id %}" method="post" style="margin: 5px">
+                    {% csrf_token %}
+                    <input class="btn btn-success" type="submit" value="Complete">
+                </form>
+                <form action="{% url 'myapp:delete_milestone' milestone.id %}" method="post" style="margin: 5px">
+                    {% csrf_token %}
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <form class="input-group mt-3" action="{% url 'myapp:create_milestone' mission.id %}" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="text" name="name" placeholder="Create a new milestone" autocomplete="off" autofocus>
+        <input class="btn btn-info" type="submit" value="Add a new milestone">
+    </form>
+</div>
+
+<script src="{% static 'myapp/details.js' %}"></script>
+{% endblock %}

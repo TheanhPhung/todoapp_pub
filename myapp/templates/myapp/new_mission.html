@@ -1,0 +1,97 @@
+{% extends "myapp/layout.html" %}
+
+{% load static %}
+
+{% block title %}Add new mission{% endblock %}
+
+{% block body %}
+    <div id="new-mission" class="container" style="margin-top: 20px">
+        <div class="d-flex justify-content-center" id="form-header">
+            <h3 style="font-style: italic; font-weight: bold;">Creating new mission form<h3>
+        </div>
+        <form action="{% url 'myapp:new_mission' %}" method="post" autocomplete="off">
+            {% csrf_token %}
+            <div>
+                <input class="form-control" type="text" name="name" placeholder="Mission name" autocomple="off">
+            </div>
+            <div>
+                <textarea class="form-control" name="describle" placeholder="Description"></textarea>
+            </div>
+            <div>
+                <select class="form-control" name="mission_type">
+                    <option>-- Type of mission --</option>
+                    {% for choice in type_choices %}
+                        <option value="{{ choice }}">{{ choice }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="mission_period">
+                    <option>-- Mission period --</option>
+                    {% for choice in period_choices %}
+                        <option value="{{ choice }}">{{ choice }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="mission_priority">
+                    <option>-- Mission priority --</option>
+                    {% for key, value in priority_choices %}
+                        <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="deadline" style="padding-bottom: 0px;">Deadline</label>
+                <div class="col-sm-10" style="margin:0px; padding: 0px;">
+                    <input class="form-control" type="date" name="deadline">
+                </div>
+            </div>
+            <div>
+                <select class="form-control" name="parent_mission">
+                    <option value="none">--Parent mission--</option>
+                    {% for mission in missions %}
+                    <option value="{{ mission.id }}">{{ mission.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="reward_1"> 
+                    <option value="none">--Select first reward--</option>
+                    {% for field in field_list %}
+                    <option value="{{ field }}">{{ field.capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="reward_2"> 
+                    <option value="none">--Select second reward--</option>
+                    {% for field in field_list %}
+                    <option value="{{ field }}">{{ field.capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="reward_3"> 
+                    <option value="none">--Select third reward--</option>
+                    {% for field in field_list %}
+                    <option value="{{ field }}">{{ field.capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="special_skill_reward"> 
+                    <option value="-1">--Select special skill reward--</option>
+                    {% for skill in special_skills %}
+                    <option value="{{ skill.id }}">{{ skill.name.capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="d-flex justify-content-center"> 
+                <input id="form-submit" class="btn btn-primary" type="submit" value="Add a new mission">
+            </div>
+        </form>
+    </div>
+
+    <script src={% static 'myapp/missions.js' %}></script>
+{% endblock %}

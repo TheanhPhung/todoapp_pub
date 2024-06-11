@@ -1,0 +1,116 @@
+#navbar {
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+    }
+
+    .module-right li {
+        float: right;
+    }
+}
+
+
+.alert-messages {
+    list-style-type: none;
+    padding: 0;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+#profile {
+    position: relative !important;
+    top: 20% !important;
+}
+
+#missions-list {
+    position: relative;
+    margin-top: 20px;
+}
+
+.mission {
+    margin: 5px;
+
+    li {
+        list-style-type: none;
+    }
+
+    div {
+        padding: 5px;
+    }
+
+    div:hover {
+        background-color: lightyellow;
+        font-weight: bold;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+}
+
+#new-mission div{
+    position: relative;
+    margin: 5px 5px;
+}
+
+#edit-mission div{
+    position: relative;
+    margin: 5px 5px;
+}
+
+#properties {
+    position: relative;
+    margin-top: 20px;
+}
+
+.pro-card:hover {
+    background-color: lightyellow;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+#login-form #register-form{
+    .card-body {
+        div {
+            input {
+                margin: 5px;
+            }
+        }
+    }
+}
+
+.no-underline {
+    text-decoration: none;
+    color: black;
+}
+
+#mission-header:hover {
+    background-color: lightyellow;
+}
+
+.milestone:hover {
+    background-color: lightyellow;
+}

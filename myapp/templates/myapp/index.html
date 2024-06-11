@@ -1,0 +1,79 @@
+{% extends "myapp/layout.html" %}
+
+{% load static %}
+
+{% block title %}Home page{% endblock %}
+
+{% block body %}
+    <div class="container" id="profile" style="margin-top: 20px;">
+        <div id="user-profile" class="d-flex flex-row justify-content-around">
+            <ul class="list-group card" style="width: 300px;">
+                <h4 class="card-header p-2 bd-highlight bg-dark text-white">{{ user.username }}'s Profile</h4>
+                <li class="list-group-item p-1 bd-highlight">Name: {{ user.username }}</li>
+                <li class="list-group-item p-1 bd-highlight">Sex: {{ user.sex }}</li>
+                <li class="list-group-item p-1 bd-highlight">Date of birth: {{ user.date_of_birth }}</li>
+                <li class="list-group-item p-1 bd-highlight">Age: {{ user.age }}</li>
+                <li class="list-group-item p-1 bd-highlight">Level: {{ user.level }}</li>
+                <li class="list-group-item p-1 bd-highlight">
+                    <p>Score: {{ user.score }}/{{ user.level_score }}</p>
+                    <div class="progress" style="height: 30px">
+                        <div class="progress-bar bg-dark" role="progressbar" style="width: {{ user.score }}%" aria-valuenow="{{ user.score }}" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="d-flex flex-column justify-content-center">
+                <img class="img-fluid rounded" src="static/myapp/images/avatar.jpg" style="width: 450px; border-radius: 5px;">
+            </div>
+
+        </div>
+
+        <ul class="list-group card bg-dark text-white" style="margin-top: 20px;">
+            <div class="d-flex justify-content-center">
+                <h4 class="card-header p-2 bd-highlight">General info</h4>
+            </div>
+            <li class="list-group-item p-1 bd-highlight">
+                General: {{ property.average_all_fields|floatformat:2 }}
+                <div class="progress" style="height:20px">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{ property.average_all_fields }}%" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-1 bd-highlight">
+                Mentality: {{ property.mentality|floatformat:2 }}
+                <div class="progress" style="height:20px">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{ property.mentality }}%" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-1 bd-highlight">
+                Brain: {{ property.brain|floatformat:2 }}
+                <div class="progress" style="height:20px">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{ property.brain }}%" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-1 bd-highlight">
+                Physical: {{ property.physical|floatformat:2 }}
+                <div class="progress" style="height:20px">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{ property.physical }}%" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-1 bd-highlight">
+                Financial: {{ property.financial|floatformat:2 }}
+                <div class="progress" style="height:20px">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{ property.financial }}%" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-1 bd-highlight">
+                Social skill: {{ property.social_skill|floatformat:2 }} 
+                <div class="progress" style="height:20px">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{ property.social_skill }}%" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

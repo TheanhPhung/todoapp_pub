@@ -1,0 +1,40 @@
+{% extends "myapp/layout.html" %}
+
+{% load static %}
+
+{% block title %}Special skill{% endblock %}
+
+{% block body %}
+<div class="container" id="special_skills">
+    <div class="d-flex justify-content-center">
+        <h4>{{ user.username }}'s special skills</h4>
+    </div>
+    <div>
+        {% for skill in special_skills %}
+        <div class="card pro-card" style="margin-top: 10px">
+            <div class="container" style="margin: 5px 5px;">
+                <strong>{{ skill.name }}:</strong> {{ skill.value|floatformat:2 }}/100
+                <div class="progress" style="height: 30px">
+                    <div class="progress-bar bg-dark" role="progressbar" 
+                        {% if skill.value < 0 %}
+                            style="width: 0%"
+                        {% else %}
+                            style="width: {{ skill.value }}%;"
+                        {% endif %}
+                            aria-valuenow="{{ skill.value }}" aria-valuemin="0" aria-valuemax="100">{{ value|floatformat:2 }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container mt-3" id="create_new_skill">
+    <form class="input-group mt-3" action="{% url 'myapp:new_special_skill' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="text" name="name" placeholder="Create a new special skill" autocomplete="off">
+        <input class="btn btn-info" type="submit" value="Create">
+    </form>
+</div>
+{% endblock %}

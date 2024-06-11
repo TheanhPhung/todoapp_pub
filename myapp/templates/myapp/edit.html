@@ -1,0 +1,104 @@
+{% extends "myapp/layout.html" %}
+
+{% load static %}
+
+{% block title %}Add new mission{% endblock %}
+
+{% block body %}
+    <div id="edit-mission" class="container" style="margin-top: 20px">
+        <div class="d-flex justify-content-center" id="form-header">
+            <h3 style="font-style: italic; font-weight: bold;">Edit available mission form<h3>
+        </div>
+        <form action="{% url 'myapp:edit' mission.id %}" method="post" autocomplete="off">
+            {% csrf_token %}
+            <div>
+                <input class="form-control" type="text" name="name" placeholder="Mission name" autocomple="off" value="{{ mission.name }}">
+            </div>
+            <div>
+                <textarea class="form-control" name="describle" placeholder="Descible">{{ mission.describle }}</textarea>
+            </div>
+            <div>
+                <select class="form-control" name="mission_type">
+                    <option>-- Type of mission --</option>
+                    {% for choice in type_choices %}
+                    <option value="{{ choice }}" 
+                    {% if choice == mission.mission_type %}selected{% endif %}
+                    >{{ choice }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="mission_period">
+                    <option>-- Mission period --</option>
+                    {% for choice in period_choices %}
+                        <option value="{{ choice }}"
+                        {% if choice == mission.mission_period %}selected{% endif %}
+                        >{{ choice }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="mission_priority">
+                    <option>-- Mission priority --</option>
+                    {% for key, value in priority_choices %}
+                        <option value="{{ key }}"
+                        {% if key == mission.mission_priority %}selected{% endif %}
+                        >{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="deadline" style="padding-bottom: 0px;">Deadline</label>
+                <div class="col-sm-10" style="margin:0px; padding: 0px;">
+                    <input class="form-control" type="date" name="deadline" value="{{ mission.deadline }}">
+                </div>
+            </div>
+            <div>
+                <select class="form-control" name="parent_mission">
+                    <option value="none">--Parent mission--</option>
+                    {% for task in missions %}
+                    <option value="{{ task.id }}"
+                            {% if mission.parent_mission_id == task.id %}selected{% endif %}
+                    >{{ task.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="reward_1"> 
+                    <option value="none">--Select first reward--</option>
+                    {% for field in field_list %}
+                    <option value="{{ field }}"
+                            {% if mission.reward_1 == field %}selected{% endif %}
+                    >{{ field.capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="reward_2"> 
+                    <option value="none">--Select second reward--</option>
+                    {% for field in field_list %}
+                    <option value="{{ field }}"
+                            {% if mission.reward_2 == field %}selected{% endif %}
+                    >{{ field.capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select class="form-control" name="reward_3"> 
+                    <option value="none">--Select third reward--</option>
+                    {% for field in field_list %}
+                    <option value="{{ field }}"
+                            {% if mission.reward_3 == field %}selected{% endif %}
+                    >{{ field.capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="d-flex justify-content-center"> 
+                <input id="form-submit" class="btn btn-dark" type="submit" value="Edit mission">
+            </div>
+        </form>
+    </div>
+
+    <script src={% static 'myapp/missions.js' %}></script>
+{% endblock %}
+

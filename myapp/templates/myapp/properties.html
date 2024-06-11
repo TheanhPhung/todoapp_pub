@@ -1,0 +1,31 @@
+{% extends 'myapp/layout.html' %}
+
+{% load static %}
+
+{% block title %}Properties{% endblock %}
+
+{% block body %}
+<div class="container" id="properties">
+    <div class="d-flex justify-content-center">
+        <h4>{{ user.username }}'s Properties</h4>
+    </div>
+    <div>
+        {% for key, value in fields_dict.items %}
+        <div class="card pro-card" style="margin-top: 10px">
+            <div class="container" style="margin: 5px 5px;">
+                <strong>{{ key.capitalize }}:</strong> {{ value|floatformat:2 }}/100
+                <div class="progress" style="height: 30px">
+                    <div class="progress-bar bg-dark" role="progressbar" 
+                        {% if value < 0 %}
+                            style="width: 0%"
+                        {% else %}
+                            style="width: {{ value }}%;"
+                        {% endif %}
+                            aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100">{{ value|floatformat:2 }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
