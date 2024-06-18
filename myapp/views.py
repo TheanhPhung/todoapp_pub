@@ -127,13 +127,15 @@ def edit(request, mission_id):
     missions = Mission.objects.filter(executor=request.user, is_completed=False, is_canceled=False, is_failed=False)
 
     if request.method == "GET":
+        deadline = mission.deadline.strftime('%Y-%m-%d') if mission.deadline else ''
         return render(request, "myapp/edit.html", {
             "mission": mission,
             "type_choices": type_choices,
             "period_choices": period_choices,
             "priority_choices": priority_choices,
             "field_list": field_list,
-            "missions": missions
+            "missions": missions,
+            "deadline": deadline
         })
 
     else:
