@@ -6,8 +6,8 @@
 
 {% block body %}
     <div class="container" id="profile" style="margin-top: 20px;">
-        <div id="user-profile" class="d-flex flex-row justify-content-around">
-            <ul class="list-group card" style="width: 300px;">
+        <div id="user-profile">
+            <ul class="list-group card">
                 <h4 class="card-header p-2 bd-highlight bg-dark text-white">{{ user.username }}'s Profile</h4>
                 <li class="list-group-item p-1 bd-highlight">Name: {{ user.username }}</li>
                 <li class="list-group-item p-1 bd-highlight">Sex: {{ user.sex }}</li>
@@ -21,11 +21,9 @@
                         </div>
                     </div>
                 </li>
+                <li class="list-group-item p-1 bd-hightlight" style="color: green;"><strong>Success rate:</strong> {{ success_rate|floatformat:2 }}%</li>
+                <li class="list-group-item p-1 bd-hightlight" style="color: red;"><strong>Failure rate:</strong> {{ failure_rate|floatformat:2 }}%</li>
             </ul>
-            <div class="d-flex flex-column justify-content-center">
-                <img class="img-fluid rounded" src="static/myapp/images/avatar.jpg" style="width: 450px; border-radius: 5px;">
-            </div>
-
         </div>
 
         <ul class="list-group card bg-dark text-white" style="margin-top: 20px;">

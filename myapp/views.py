@@ -39,9 +39,17 @@ def index(request):
 
         update_failed_mission(request)
         property = Property.objects.get(owner=request.user)
+        missions = Mission.objects.filter(executor=request.user)
+        total_missions = missions.count()
+        done_missions = missions.filter(is_completed=True).count()
+        failed_missions = missions.filter(is_failed=True).count()
+        success_rate = done_missions / total_missions * 100
+        failure_rate = failed_missions / total_missions * 100
         return render(request, "myapp/index.html", {
             "user": user,
             "property": property,
+            "success_rate": success_rate,
+            "failure_rate": failure_rate
         })
 
     else:
